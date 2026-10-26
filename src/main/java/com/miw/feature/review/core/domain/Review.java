@@ -22,13 +22,11 @@ public class Review {
     @Column(name = "ID")
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "BOOK_ID", nullable = false, updatable = false)
-    private Book book;
+    @Column(name = "BOOK_ID", nullable = false, updatable = false)
+    private int bookId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "USER_ID", nullable = false, updatable = false)
-    private User user;
+    @Column(name = "USER_ID", nullable = false, updatable = false)
+    private int userId;
 
     @Column(name = "REVIEW_TEXT", nullable = false, length = 10000)
     private String text;
@@ -43,16 +41,16 @@ public class Review {
 
     // All args constructor
 
-    public Review(int id, Book book, User user, String text, int score) {
+    public Review(int id, int bookId, int userId, String text, int score) {
         setId(id);
-        setBook(book);
-        setUser(user);
+        setBookId(bookId);
+        setUserId(userId);
         setText(text);
         setScore(score);
     }
 
-    public Review(Book book, User user, String text, int score) {
-        this(0, book, user, text, score);
+    public Review(int bookId, int userId, String text, int score) {
+        this(0, bookId, userId, text, score);
     }
 
     // Getters
@@ -61,12 +59,12 @@ public class Review {
         return id;
     }
 
-    public Book getBook() {
-        return book;
+    public int getBookId() {
+        return bookId;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
     public String getText() {
@@ -84,14 +82,14 @@ public class Review {
         this.id = id;
     }
 
-    private void setBook(Book book) {
-        if (book == null) throw new IllegalArgumentException("Book is required");
-        this.book = book;
+    private void setBookId(int bookId) {
+        if (bookId <= 0) throw new IllegalArgumentException("Book ID must be valid");
+        this.bookId = bookId;
     }
 
-    private void setUser(User user) {
-        if (user == null) throw new IllegalArgumentException("User is required");
-        this.user = user;
+    private void setUserId(int userId) {
+        if (userId <= 0) throw new IllegalArgumentException("User ID must be valid");
+        this.userId = userId;
     }
 
     public void setText(String text) {

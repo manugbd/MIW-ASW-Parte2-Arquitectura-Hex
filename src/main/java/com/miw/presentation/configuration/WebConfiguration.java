@@ -30,6 +30,8 @@ public class WebConfiguration implements WebMvcConfigurer {
 						"/showSpecialOffer",
 						"/cart",
 						"/cart/**",
+						"/books/*/reviews",
+						"/books/*/reviews/**",
 						"/adminInfo");
 
 		registry.addInterceptor(adminAthorizationInterceptor)
