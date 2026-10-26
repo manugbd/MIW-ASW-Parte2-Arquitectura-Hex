@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+                                 https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
+	version="3.2">
+
+	<persistence-unit name="JPA_PU"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+		<class>com.miw.feature.catalog.core.domain.Book</class>
+		<class>com.miw.feature.catalog.core.domain.VAT</class>
+		<class>com.miw.feature.authentication.core.domain.User</class>
+		<class>com.miw.feature.shoppingcart.core.domain.ShoppingCart</class>
+		<class>com.miw.feature.shoppingcart.core.domain.CartItem</class>
+
+		<properties>
+			<!-- Existing Amazin HSQLDB database. -->
+			<property name="jakarta.persistence.jdbc.url"
+				value="jdbc:hsqldb:hsql://localhost/amazin" />
+			<property name="jakarta.persistence.jdbc.user"
+				value="DFLANVIN" />
+			<property name="jakarta.persistence.jdbc.password"
+				value="AMAZIN" />
+			<property name="jakarta.persistence.jdbc.driver"
+				value="org.hsqldb.jdbc.JDBCDriver" />
+
+			<!-- The database schema already exists: JPA must not create or modify 
+				it. -->
+			<property
+				name="jakarta.persistence.schema-generation.database.action"
+				value="none" />
+
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.HSQLDialect" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+		</properties>
+	</persistence-unit>
+</persistence>

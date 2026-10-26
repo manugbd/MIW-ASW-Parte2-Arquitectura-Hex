@@ -1,0 +1,5 @@
+id;title;author;description;basePrice;vatId;vatValue;taxGroup
+1;Dune;Frank Herbert;Science fiction novel set on Arrakis;12.95;1;0.21;1
+2;Neuromancer;William Gibson;Cyberpunk novel about hackers and artificial intelligence;10.50;1;0.21;1
+3;Foundation;Isaac Asimov;The decline and rebirth of a galactic civilization;11.25;1;0.21;1
+4;The Hobbit;J. R. R. Tolkien;Bilbo Baggins begins an unexpected adventure;9.90;1;0.21;1
