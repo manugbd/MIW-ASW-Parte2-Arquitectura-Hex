@@ -25,7 +25,7 @@ public class ReviewConfiguration {
     }
 
     @Bean
-    public BookCatalog bookCatalog(FindBook findBook) {
+    public BookCatalog reviewBookCatalog(FindBook findBook) {
         return new CatalogBookAdapter(findBook);
     }
 

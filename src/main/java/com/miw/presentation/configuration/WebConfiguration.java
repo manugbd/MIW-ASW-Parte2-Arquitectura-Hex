@@ -30,6 +30,7 @@ public class WebConfiguration implements WebMvcConfigurer {
 						"/showSpecialOffer",
 						"/cart",
 						"/cart/**",
+						"/books/*",
 						"/books/*/reviews",
 						"/books/*/reviews/**",
 						"/adminInfo");

@@ -83,7 +83,12 @@
 					<c:if test="${specialOfferBook != null}">
 
 						<tr>
-							<td>${specialOfferBook.title}</td>
+							<td>
+                                <a class="book-details-link"
+                                   href="${pageContext.request.contextPath}/books/${specialOfferBook.id}">
+                                    <c:out value="${specialOfferBook.title}" />
+                                </a>
+                            </td>
 							<td>${specialOfferBook.author}</td>
 							<td>${specialOfferBook.description}</td>
 

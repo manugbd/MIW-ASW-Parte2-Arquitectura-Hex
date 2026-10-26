@@ -82,7 +82,12 @@
 					<c:forEach var="book" items="${books}">
 
 						<tr>
-							<td>${book.title}</td>
+							<td>
+                                <a class="book-details-link"
+                                   href="${pageContext.request.contextPath}/books/${book.id}">
+                                    <c:out value="${book.title}" />
+                                </a>
+                            </td>
 							<td>${book.author}</td>
 							<td>${book.description}</td>
 

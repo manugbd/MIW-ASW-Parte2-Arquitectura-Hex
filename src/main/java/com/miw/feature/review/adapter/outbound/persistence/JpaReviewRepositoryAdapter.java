@@ -1,7 +1,6 @@
 package com.miw.feature.review.adapter.outbound.persistence;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Locale;
 import com.miw.feature.review.core.domain.Review;
 import com.miw.feature.review.core.port.inbound.exception.DuplicateReviewException;
@@ -43,12 +42,6 @@ public class JpaReviewRepositoryAdapter implements ReviewRepository {
         return entityManager.createQuery(
                 "select count(r) from Review r where r.bookId = :bookId and r.userId = :userId", Long.class)
                 .setParameter("bookId", bookId).setParameter("userId", userId).getSingleResult() > 0;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<Review> findById(int reviewId) {
-        return Optional.ofNullable(entityManager.find(Review.class, reviewId));
     }
 
     @Override
