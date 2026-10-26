@@ -3,44 +3,79 @@ package com.miw.feature.shoppingcart.core.domain;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
+import java.util.Objects;
+
 @Embeddable
 public class CartItem {
 
-	@Column(name = "BOOK_ID")
-	private int bookId;
+    // Attributes
 
-	@Column(name = "QUANTITY")
-	private int quantity;
+    @Column(name = "BOOK_ID", nullable = false)
+    private int bookId;
 
-	protected CartItem() {
-	}
+    @Column(name = "QUANTITY", nullable = false)
+    private int quantity;
 
-	public CartItem(int bookId, int quantity) {
-		if (quantity < 1) {
-			throw new IllegalArgumentException("Quantity must be at least 1");
-		}
+    // Empty constructor
 
-		this.bookId = bookId;
-		this.quantity = quantity;
-	}
+    protected CartItem() {    }
 
-	public int getBookId() {
-		return bookId;
-	}
+    // All args constructor
 
-	public int getQuantity() {
-		return quantity;
-	}
+    public CartItem(int bookId, int quantity) {
+        setBookId(bookId);
+        setQuantity(quantity);
+    }
 
-	public void increaseQuantity() {
-		quantity++;
-	}
+    // Getters
 
-	public void decreaseQuantity() {
-		if (quantity <= 1) {
-			throw new IllegalStateException("Quantity cannot be lower than 1");
-		}
 
-		quantity--;
-	}
+    public int getBookId() {
+        return bookId;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    // Setters
+
+    private void setBookId(int bookId) {
+        if (bookId <= 0) throw new IllegalArgumentException("Book ID must be positive");
+        this.bookId = bookId;
+    }
+
+    private void setQuantity(int quantity) {
+        if (quantity < 1) throw new IllegalArgumentException("Quantity must be at least 1");
+        this.quantity = quantity;
+    }
+
+    // Business methods
+
+    public void increaseQuantity() {
+        setQuantity(getQuantity() + 1);
+    }
+
+    public void decreaseQuantity() {
+        if (getQuantity() <= 1) throw new IllegalStateException("Quantity cannot be lower than 1");
+
+        setQuantity(getQuantity() - 1);
+    }
+
+    // Equals and hashCode
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        return object instanceof CartItem other
+                && Objects.equals(getBookId(), other.getBookId())
+                && getQuantity() == other.getQuantity();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getBookId(), getQuantity());
+    }
 }

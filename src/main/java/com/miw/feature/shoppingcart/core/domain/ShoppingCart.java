@@ -1,94 +1,142 @@
 package com.miw.feature.shoppingcart.core.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.*;
 
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "SHOPPING_CART")
 public class ShoppingCart {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	private int id;
+    // Attributes
 
-	@Column(name = "USER_ID", nullable = false, unique = true)
-	private int userId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private int id;
 
-	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(
-			name = "SHOPPING_CART_ITEM",
-			joinColumns = @JoinColumn(name = "SHOPPING_CART_ID"))
-	private List<CartItem> cartItems = new ArrayList<>();
+    @Column(name = "USER_ID", nullable = false, unique = true)
+    private int userId;
 
-	protected ShoppingCart() {
-	}
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(
+            name = "SHOPPING_CART_ITEM",
+            joinColumns = @JoinColumn(name = "SHOPPING_CART_ID"),
+            uniqueConstraints = @UniqueConstraint(
+                    name = "UK_CART_ITEM_BOOK",
+                    columnNames = {"SHOPPING_CART_ID", "BOOK_ID"}
+            )
+    )
+    private List<CartItem> cartItems = new ArrayList<>();
 
-	public ShoppingCart(int id, int userId, List<CartItem> cartItems) {
-		this.id = id;
-		this.userId = userId;
-		this.cartItems = new ArrayList<>(cartItems);
-	}
+    // Empty constructor
+    protected ShoppingCart() {
+    }
 
-	public ShoppingCart(int userId) {
-		this(0, userId, List.of());
-	}
+    // All args constructor
+    public ShoppingCart(int id, int userId, List<CartItem> cartItems) {
+        setId(id);
+        setUserId(userId);
+        setCartItems(cartItems);
+    }
 
-	public int getId() {
-		return id;
-	}
+    public ShoppingCart(int userId) {
+        this(0, userId, List.of());
+    }
 
-	public int getUserId() {
-		return userId;
-	}
+    // Getters
 
-	public List<CartItem> getCartItems() {
-		return List.copyOf(cartItems);
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void addBook(int bookId) {
-		CartItem cartItem = findCartItem(bookId);
+    public int getUserId() {
+        return userId;
+    }
 
-		if (cartItem == null) {
-			cartItems.add(new CartItem(bookId, 1));
-		} else {
-			cartItem.increaseQuantity();
-		}
-	}
+    public List<CartItem> getCartItems() {
+        return List.copyOf(cartItems);
+    }
 
-	public void decreaseBookQuantity(int bookId) {
-		CartItem cartItem = findCartItem(bookId);
+    // Setters
 
-		if (cartItem == null) {
-			return;
-		}
+    private void setId(int id) {
+        if (id < 0) throw new IllegalArgumentException("ID must not be negative");
+        this.id = id;
+    }
 
-		if (cartItem.getQuantity() == 1) {
-			cartItems.remove(cartItem);
-		} else {
-			cartItem.decreaseQuantity();
-		}
-	}
+    private void setUserId(int userId) {
+        if (userId <= 0) throw new IllegalArgumentException("User ID must be positive");
+        this.userId = userId;
+    }
 
-	public void removeBook(int bookId) {
-		cartItems.removeIf(cartItem -> cartItem.getBookId() == bookId);
-	}
+    private void setCartItems(List<CartItem> cartItems) {
+        if (cartItems == null) throw new IllegalArgumentException("Cart items are required");
+        Set<Integer> books = new HashSet<>();
+        for (CartItem item : cartItems) {
+            if (item == null || item.getBookId() <= 0 || item.getQuantity() < 1 || !books.add(item.getBookId()))
+                throw new IllegalArgumentException("Cart items must be valid and contain no duplicate books");
+        }
 
-	private CartItem findCartItem(int bookId) {
-		return cartItems.stream()
-				.filter(cartItem -> cartItem.getBookId() == bookId)
-				.findFirst()
-				.orElse(null);
-	}
+        this.cartItems = new ArrayList<>();
+
+        for (CartItem item : cartItems)
+            this.cartItems.add(new CartItem(item.getBookId(), item.getQuantity()));
+    }
+
+    // Business methods
+
+    public void addBook(int bookId) {
+        if (bookId <= 0) throw new IllegalArgumentException("Book ID must be positive");
+
+        CartItem item = cartItems.stream()
+                .filter(candidate -> candidate.getBookId() == bookId)
+                .findFirst().orElse(null);
+
+        if (item == null)
+            cartItems.add(new CartItem(bookId, 1));
+        else item.increaseQuantity();
+    }
+
+    public void decreaseBookQuantity(int bookId) {
+        CartItem item = findCartItem(bookId);
+        if (item == null) return;
+
+        if (item.getQuantity() == 1)
+            cartItems.remove(item);
+        else item.decreaseQuantity();
+
+    }
+
+    public void removeBook(int bookId) {
+        CartItem item = findCartItem(bookId);
+
+        if (item != null)
+            cartItems.remove(item);
+    }
+
+    private CartItem findCartItem(int bookId) {
+        if (bookId <= 0) throw new IllegalArgumentException("Book ID must be positive");
+
+        return cartItems.stream().filter(item -> item.getBookId() == bookId)
+                .findFirst().orElse(null);
+    }
+
+    // Equals and hashCode
+
+    @Override
+    public final boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        return object instanceof ShoppingCart other && getId() != 0 && getId() == other.getId();
+    }
+
+    @Override
+    public final int hashCode() {
+        return ShoppingCart.class.hashCode();
+    }
 }

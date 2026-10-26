@@ -1,14 +1,35 @@
 package com.miw.feature.catalog.core.domain;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import com.miw.feature.catalog.core.DomainHelper;
 import org.junit.jupiter.api.Test;
 
-import com.miw.feature.catalog.core.DomainHelper;
-import com.miw.feature.catalog.core.domain.Book;
-import com.miw.feature.catalog.core.domain.VAT;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BookTest {
+
+	@Test
+	void rejectsInvalidBookData() {
+		Book book = new Book();
+		assertThrows(IllegalArgumentException.class, () -> book.setTitle(" "));
+		assertThrows(IllegalArgumentException.class, () -> book.setAuthor(null));
+		assertThrows(IllegalArgumentException.class, () -> book.setDescription(""));
+		assertThrows(IllegalArgumentException.class, () -> book.setVat(null));
+		assertThrows(IllegalArgumentException.class, () -> book.setBasePrice(-1));
+		assertThrows(IllegalArgumentException.class, () -> book.setBasePrice(Double.NaN));
+		assertThrows(IllegalArgumentException.class, () -> book.setBasePrice(Double.POSITIVE_INFINITY));
+	}
+
+	@Test
+	void rejectsInvalidVatAndPriceMultipliers() {
+		VAT vat = DomainHelper.createVAT(1, 0.21, 1);
+		Book book = DomainHelper.createBook(1, "Title", "Author", "Description", 100, vat);
+		assertThrows(IllegalArgumentException.class, () -> vat.setValue(-0.21));
+		assertThrows(IllegalArgumentException.class, () -> vat.setValue(Double.NaN));
+		assertThrows(IllegalArgumentException.class, () -> book.getDiscountedPrice(-0.1));
+		assertThrows(IllegalArgumentException.class, () -> book.getDiscountedPrice(1.1));
+		assertThrows(IllegalArgumentException.class, () -> book.getDiscountedPrice(Double.NaN));
+	}
 
 	@Test
 	void calculatePriceIncludingVat() {

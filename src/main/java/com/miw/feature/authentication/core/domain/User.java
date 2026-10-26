@@ -1,54 +1,98 @@
 package com.miw.feature.authentication.core.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "APP_USER")
 public class User {
 
-	@Id
-	@Column(name = "ID")
-	private int id;
+    // Attributes
 
-	@Column(name = "USERNAME")
-	private String username;
+    @Id
+    @Column(name = "ID")
+    private int id;
 
-	@Column(name = "PASSWORD")
-	private String password;
+    @Column(name = "USERNAME", nullable = false)
+    private String username;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "ROLE")
-	private Role role;
+    @Column(name = "PASSWORD", nullable = false)
+    private String password;
 
-	protected User() {
-	}
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ROLE", nullable = false)
+    private Role role;
 
-	public User(int id, String username, String password, Role role) {
+    // Empty constructor
 
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.role = role;
-	}
+    protected User() {
+    }
 
-	public int getId() {
-		return id;
-	}
+    // All args constructor
 
-	public String getUsername() {
-		return username;
-	}
+    public User(int id, String username, String password, Role role) {
+        setId(id);
+        setUsername(username);
+        setPassword(password);
+        setRole(role);
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    // Getters
 
-	public Role getRole() {
-		return role;
-	}
+    public int getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    // Setters
+
+    private void setId(int id) {
+        if (id < 0) throw new IllegalArgumentException("ID must not be negative");
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        if (username == null || username.isBlank())
+            throw new IllegalArgumentException("username must not be blank");
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        if (password == null || password.isBlank())
+            throw new IllegalArgumentException("password must not be blank");
+        this.password = password;
+    }
+
+    public void setRole(Role role) {
+        if (role == null) throw new IllegalArgumentException("Role is required");
+        this.role = role;
+    }
+
+
+    // Equals and hashCode
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return getId() == user.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
+    }
 }

@@ -14,6 +14,7 @@
 		<class>com.miw.feature.authentication.core.domain.User</class>
 		<class>com.miw.feature.shoppingcart.core.domain.ShoppingCart</class>
 		<class>com.miw.feature.shoppingcart.core.domain.CartItem</class>
+		<class>com.miw.feature.review.core.domain.Review</class>
 
 		<properties>
 			<!-- Existing Amazin HSQLDB database. -->

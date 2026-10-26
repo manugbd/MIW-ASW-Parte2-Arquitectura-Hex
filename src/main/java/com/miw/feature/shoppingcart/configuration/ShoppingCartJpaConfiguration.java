@@ -12,8 +12,7 @@ import jakarta.persistence.EntityManager;
 public class ShoppingCartJpaConfiguration {
 
 	@Bean
-	public ShoppingCartRepository shoppingCartRepository(
-			EntityManager entityManager) {
+	public ShoppingCartRepository shoppingCartRepository(EntityManager entityManager) {
 
 		return new JpaShoppingCartRepositoryAdapter(entityManager);
 	}

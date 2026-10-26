@@ -27,20 +27,18 @@ public class CsvBookRepositoryAdapter implements BookRepository {
 	private Book csvLineToBook(String csvLine) {
 		String[] fields = csvLine.split(";");
 
-		VAT vat = new VAT();
-		vat.setId(Integer.parseInt(fields[5]));
-		vat.setValue(Double.parseDouble(fields[6]));
-		vat.setTaxGroup(Integer.parseInt(fields[7]));
+		VAT vat = new VAT(
+				Integer.parseInt(fields[5]),
+				Double.parseDouble(fields[6]),
+				Integer.parseInt(fields[7]));
 
-		Book book = new Book();
-		book.setId(Integer.parseInt(fields[0]));
-		book.setTitle(fields[1]);
-		book.setAuthor(fields[2]);
-		book.setDescription(fields[3]);
-		book.setBasePrice(Double.parseDouble(fields[4]));
-		book.setVat(vat);
-
-		return book;
+		return new Book(
+				Integer.parseInt(fields[0]),
+				fields[1],
+				fields[2],
+				fields[3],
+				Double.parseDouble(fields[4]),
+				vat);
 	}
 
 	@Override
