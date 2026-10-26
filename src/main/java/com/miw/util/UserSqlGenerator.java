@@ -24,5 +24,6 @@ public class UserSqlGenerator {
 
 		System.out.println(createInsert("admin", "amazin", Role.ADMIN));
 		System.out.println(createInsert("customer", "amazin", Role.CUSTOMER));
+		System.out.println(createInsert("manu", "admin", Role.ADMIN));
 	}
 }

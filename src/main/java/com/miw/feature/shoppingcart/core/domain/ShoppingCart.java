@@ -69,7 +69,7 @@ public class ShoppingCart {
     }
 
     private void setUserId(int userId) {
-        if (userId <= 0) throw new IllegalArgumentException("User ID must be positive");
+        if (userId < 0) throw new IllegalArgumentException("User ID must be positive");
         this.userId = userId;
     }
 
@@ -77,7 +77,7 @@ public class ShoppingCart {
         if (cartItems == null) throw new IllegalArgumentException("Cart items are required");
         Set<Integer> books = new HashSet<>();
         for (CartItem item : cartItems) {
-            if (item == null || item.getBookId() <= 0 || item.getQuantity() < 1 || !books.add(item.getBookId()))
+            if (item == null || item.getBookId() < 0 || item.getQuantity() < 1 || !books.add(item.getBookId()))
                 throw new IllegalArgumentException("Cart items must be valid and contain no duplicate books");
         }
 
@@ -90,7 +90,7 @@ public class ShoppingCart {
     // Business methods
 
     public void addBook(int bookId) {
-        if (bookId <= 0) throw new IllegalArgumentException("Book ID must be positive");
+        if (bookId < 0) throw new IllegalArgumentException("Book ID must be positive or zero");
 
         CartItem item = cartItems.stream()
                 .filter(candidate -> candidate.getBookId() == bookId)
@@ -119,7 +119,7 @@ public class ShoppingCart {
     }
 
     private CartItem findCartItem(int bookId) {
-        if (bookId <= 0) throw new IllegalArgumentException("Book ID must be positive");
+        if (bookId < 0) throw new IllegalArgumentException("Book ID must be positive");
 
         return cartItems.stream().filter(item -> item.getBookId() == bookId)
                 .findFirst().orElse(null);

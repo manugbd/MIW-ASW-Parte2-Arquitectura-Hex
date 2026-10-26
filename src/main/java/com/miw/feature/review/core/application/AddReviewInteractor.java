@@ -26,7 +26,7 @@ public class AddReviewInteractor implements AddBookReview {
 
     @Override
     public ReviewDTO addReview(int userId, int bookId, String text, int score) {
-        if (userId <= 0 || bookId <= 0)
+        if (userId < 0 || bookId < 0)
             throw new IllegalArgumentException("User and book IDs must be positive");
 
         bookCatalog.findBookById(bookId).orElseThrow(() -> new BookNotFoundException(bookId));

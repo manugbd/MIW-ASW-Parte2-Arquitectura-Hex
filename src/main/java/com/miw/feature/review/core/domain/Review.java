@@ -83,12 +83,12 @@ public class Review {
     }
 
     private void setBookId(int bookId) {
-        if (bookId <= 0) throw new IllegalArgumentException("Book ID must be valid");
+        if (bookId < 0) throw new IllegalArgumentException("Book ID must be valid");
         this.bookId = bookId;
     }
 
     private void setUserId(int userId) {
-        if (userId <= 0) throw new IllegalArgumentException("User ID must be valid");
+        if (userId < 0) throw new IllegalArgumentException("User ID must be valid");
         this.userId = userId;
     }
 

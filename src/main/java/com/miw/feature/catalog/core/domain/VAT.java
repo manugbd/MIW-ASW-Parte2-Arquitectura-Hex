@@ -63,7 +63,7 @@ public class VAT {
     }
 
     public void setTaxGroup(int taxGroup) {
-        if (taxGroup <= 0) throw new IllegalArgumentException("Tax group must be positive");
+        if (taxGroup < 0) throw new IllegalArgumentException("Tax group must be positive");
         this.taxGroup = taxGroup;
     }
 

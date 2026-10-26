@@ -199,3 +199,130 @@ table td {
 	text-decoration: underline;
 	cursor: pointer;
 }
+
+/* Book details and reviews */
+.book-details-link {
+    color: darkgreen;
+    font-weight: bold;
+}
+
+tbody tr:hover .book-details-link {
+    color: white;
+}
+
+section.book-page {
+    width: min(900px, calc(100% - 195px));
+    margin: 30px 0 0 20px;
+    text-align: left;
+}
+
+.book-page article {
+    border: 2px solid green;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.book-page h2 {
+    margin: 0 0 16px;
+    font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
+    color: darkgreen;
+}
+
+.book-page p {
+    width: auto;
+    color: inherit;
+    background: transparent;
+    opacity: 1;
+    line-height: 1.5;
+}
+
+.book-description,
+.review-text {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.book-price {
+    border-top: 1px solid silver;
+    padding-top: 12px;
+}
+
+.review-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.review-card + .review-card {
+    border-top: 1px solid silver;
+    margin-top: 16px;
+    padding-top: 16px;
+}
+
+.review-heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.review-score {
+    margin-left: auto;
+    background: green;
+    color: white;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+.own-review {
+    color: darkgreen;
+    font-size: 0.9em;
+}
+
+.review-form label {
+    display: block;
+    margin: 16px 0 6px;
+    font-weight: bold;
+}
+
+.review-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    resize: vertical;
+    padding: 10px;
+    font: inherit;
+}
+
+.review-form input {
+    display: block;
+    width: 100px;
+    padding: 8px;
+    font: inherit;
+}
+
+.review-form button {
+    margin: 20px 0 0;
+    padding: 8px 16px;
+}
+
+.review-errors {
+    border: 1px solid #a00000;
+    background: #fff0f0;
+    color: #a00000;
+    padding: 12px;
+    margin: 12px 0;
+}
+
+@media (max-width: 700px) {
+    section.book-page {
+        display: block;
+        width: auto;
+        margin: 20px 0 0;
+    }
+
+    .book-page article {
+        padding: 16px;
+    }
+}

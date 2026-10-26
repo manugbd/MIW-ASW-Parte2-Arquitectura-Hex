@@ -41,7 +41,7 @@ public class CartItem {
     // Setters
 
     private void setBookId(int bookId) {
-        if (bookId <= 0) throw new IllegalArgumentException("Book ID must be positive");
+        if (bookId < 0) throw new IllegalArgumentException("Book ID must be positive");
         this.bookId = bookId;
     }
 

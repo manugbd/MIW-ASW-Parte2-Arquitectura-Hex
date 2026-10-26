@@ -87,7 +87,7 @@ public class ReviewController {
     // Helper methods
 
     private String prepareBookDetails(int bookId, Model model) {
-        if (bookId <= 0) throw new IllegalArgumentException("Book ID must be positive");
+        if (bookId < 0) throw new IllegalArgumentException("Book ID must be positive or zero.");
 
         BookDataDTO book = findBook.findBook(bookId).orElseThrow(() -> new BookNotFoundException(bookId));
 

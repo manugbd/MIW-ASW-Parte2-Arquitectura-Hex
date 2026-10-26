@@ -22,7 +22,7 @@ public class GetBookReviewsInteractor implements GetBookReviews {
 
     @Override
     public List<ReviewDTO> getReviewsByBook(int bookId) {
-        if (bookId <= 0)
+        if (bookId < 0)
             throw new IllegalArgumentException("Book ID must be positive");
 
         return reviewRepository.findReviewsByBook(bookId).stream()
