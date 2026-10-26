@@ -10,7 +10,7 @@ import jakarta.persistence.EntityManager;
 
 public class JpaBookRepositoryAdapter implements BookRepository {
 
-	private EntityManager entityManager;
+	private final EntityManager entityManager;
 
 	public JpaBookRepositoryAdapter(EntityManager entityManager) {
 		this.entityManager = entityManager;

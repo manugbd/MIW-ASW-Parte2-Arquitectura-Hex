@@ -5,5 +5,5 @@ import java.util.List;
 import com.miw.feature.catalog.core.domain.Book;
 
 public interface BookSelector {
-	public Book selectBook(List<Book> books);
+	Book selectBook(List<Book> books);
 }

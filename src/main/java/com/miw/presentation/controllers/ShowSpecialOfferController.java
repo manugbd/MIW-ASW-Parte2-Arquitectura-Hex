@@ -10,7 +10,7 @@ import com.miw.feature.catalog.core.port.inbound.dto.BookDataDTO;
 @Controller
 public class ShowSpecialOfferController {
 
-	private GetSpecialOfferBook getSpecialOfferBook;
+	private final GetSpecialOfferBook getSpecialOfferBook;
 
 	public ShowSpecialOfferController(GetSpecialOfferBook getSpecialOfferBook) {
 		this.getSpecialOfferBook = getSpecialOfferBook;

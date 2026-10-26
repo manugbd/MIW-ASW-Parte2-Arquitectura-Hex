@@ -4,5 +4,5 @@ import com.miw.feature.catalog.core.port.inbound.dto.BookDataDTO;
 
 public interface GetSpecialOfferBook {
 
-	public BookDataDTO getSpecialOfferBook();
+	BookDataDTO getSpecialOfferBook();
 }

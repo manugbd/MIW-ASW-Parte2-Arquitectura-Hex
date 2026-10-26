@@ -6,6 +6,6 @@ import com.miw.feature.catalog.core.port.inbound.dto.BookDataDTO;
 
 public interface GetCatalogBooks {
 
-	public List<BookDataDTO> getCatalogBooks();
+	List<BookDataDTO> getCatalogBooks();
 
 }

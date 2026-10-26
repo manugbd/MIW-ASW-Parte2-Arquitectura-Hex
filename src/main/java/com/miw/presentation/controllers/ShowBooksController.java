@@ -13,7 +13,7 @@ import com.miw.feature.catalog.core.port.inbound.dto.BookDataDTO;
 public class ShowBooksController {
 
 	// The inbound port that will be used.
-	private GetCatalogBooks getCatalogBooks;
+	private final GetCatalogBooks getCatalogBooks;
 
 	// We inyect the inbound port through the constructor.
 	public ShowBooksController(GetCatalogBooks getCatalogBooks) {
