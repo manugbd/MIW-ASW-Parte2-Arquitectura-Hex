@@ -62,10 +62,10 @@ public class ReviewController {
 
         if (!bindingResult.hasErrors()) {
             if (form.getText() == null || form.getText().isBlank())
-                bindingResult.rejectValue("text", "review.text.required", "El texto es obligatorio");
+                bindingResult.rejectValue("text", "review.text.required", "Review text is required");
 
             if (form.getScore() == null)
-                bindingResult.rejectValue("score", "review.score.required", "La puntuación es obligatoria");
+                bindingResult.rejectValue("score", "review.score.required", "Score is required");
         }
 
         if (bindingResult.hasErrors()) return prepareBookDetails(bookId, model);
@@ -73,7 +73,7 @@ public class ReviewController {
         try {
             addBookReview.addReview(user.id(), bookId, form.getText(), form.getScore());
         } catch (DuplicateReviewException exception) {
-            bindingResult.reject("review.duplicate", "Ya has escrito una reseña de este libro");
+            bindingResult.reject("review.duplicate", "You have already reviewed this book");
 
             return prepareBookDetails(bookId, model);
         } catch (IllegalArgumentException exception) {
@@ -87,7 +87,7 @@ public class ReviewController {
     // Helper methods
 
     private String prepareBookDetails(int bookId, Model model) {
-        if (bookId <= 0) throw new IllegalArgumentException("El identificador del libro debe ser positivo");
+        if (bookId <= 0) throw new IllegalArgumentException("Book ID must be positive");
 
         BookDataDTO book = findBook.findBook(bookId).orElseThrow(() -> new BookNotFoundException(bookId));
 
@@ -101,7 +101,7 @@ public class ReviewController {
 
     private AuthenticatedUser authenticatedUser(HttpSession session) {
         if (session == null || !(session.getAttribute("authenticatedUser") instanceof AuthenticatedUser user))
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Es necesario autenticarse");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Authentication is required");
 
         return user;
     }

@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -73,7 +74,19 @@
             <p>One review per user and book. Scores range from 0 to 10.</p>
             <c:url var="reviewAction" value="/books/${book.id}/reviews" />
             <form:form modelAttribute="reviewForm" action="${reviewAction}" method="post" cssClass="review-form">
-                <form:errors path="*" element="div" cssClass="review-errors" htmlEscape="true" />
+                <spring:hasBindErrors name="reviewForm">
+                    <div class="review-errors" role="alert">
+                        <c:if test="${errors.hasFieldErrors('text')}">
+                            <div>Write a review between 1 and 10,000 characters.</div>
+                        </c:if>
+                        <c:if test="${errors.hasFieldErrors('score')}">
+                            <div>Score must be an integer between 0 and 10.</div>
+                        </c:if>
+                        <c:forEach var="error" items="${errors.globalErrors}">
+                            <div><c:out value="${error.defaultMessage}" /></div>
+                        </c:forEach>
+                    </div>
+                </spring:hasBindErrors>
 
                 <label for="review-text">Your review</label>
                 <form:textarea id="review-text" path="text" rows="5" maxlength="10000"
