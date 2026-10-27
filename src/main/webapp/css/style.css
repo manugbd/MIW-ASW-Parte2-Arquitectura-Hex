@@ -326,3 +326,9 @@ section.book-page {
         padding: 16px;
     }
 }
+
+/* Featured review */
+.book-page .featured-review {
+    border-left-width: 6px;
+    background: #f4faf2;
+}
