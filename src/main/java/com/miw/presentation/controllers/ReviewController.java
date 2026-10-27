@@ -9,6 +9,7 @@ import com.miw.feature.review.core.port.inbound.GetBookReviews;
 import com.miw.feature.review.core.port.inbound.dto.ReviewDTO;
 import com.miw.feature.review.core.port.inbound.exception.BookNotFoundException;
 import com.miw.feature.review.core.port.inbound.exception.DuplicateReviewException;
+import com.miw.feature.viewed.core.port.inbound.RecordViewedBook;
 import com.miw.presentation.form.ReviewForm;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -31,16 +32,19 @@ public class ReviewController {
     private final GetBookReviews getBookReviews;
     private final AddBookReview addBookReview;
     private final GetRecommendedReview getRecommendedReview;
+    private final RecordViewedBook recordViewedBook;
 
     // All args constructor
     public ReviewController(FindBook findBook,
                             GetBookReviews getBookReviews,
                             AddBookReview addBookReview,
-                            GetRecommendedReview getRecommendedReview) {
+                            GetRecommendedReview getRecommendedReview,
+                            RecordViewedBook recordViewedBook) {
         this.findBook = findBook;
         this.getBookReviews = getBookReviews;
         this.addBookReview = addBookReview;
         this.getRecommendedReview = getRecommendedReview;
+        this.recordViewedBook = recordViewedBook;
     }
 
     // Business methods
@@ -102,6 +106,8 @@ public class ReviewController {
         model.addAttribute("book", book);
         model.addAttribute("bookReviews", reviews);
         model.addAttribute("recommendedReview", recommendedReview);
+
+        recordViewedBook.recordView(bookId);
 
         return "bookDetails";
     }

@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -75,6 +77,44 @@
 				Show Special Offers!
 			</a>
 
+		</article>
+
+		<article class="recently-viewed" aria-labelledby="recently-viewed-title">
+			<h2 id="recently-viewed-title">Recently viewed books</h2>
+			<c:choose>
+				<c:when test="${empty viewedBooks}">
+					<p>You have not viewed any books yet. Open a book from the catalog to get started.</p>
+				</c:when>
+				<c:otherwise>
+					<table>
+						<caption>Most recent first</caption>
+						<thead>
+						<tr>
+							<th>Title</th>
+							<th>Author</th>
+							<th>Price</th>
+						</tr>
+						</thead>
+						<tbody>
+						<c:forEach var="book" items="${viewedBooks}">
+							<tr>
+								<td>
+									<a class="book-details-link"
+									   href="${pageContext.request.contextPath}/books/${book.id}">
+										<c:out value="${book.title}"/>
+									</a>
+								</td>
+								<td><c:out value="${book.author}"/></td>
+								<td>
+									<fmt:formatNumber value="${book.price}" minFractionDigits="2"
+													  maxFractionDigits="2"/> &euro;
+								</td>
+							</tr>
+						</c:forEach>
+						</tbody>
+					</table>
+				</c:otherwise>
+			</c:choose>
 		</article>
 	</section>
 

@@ -118,6 +118,31 @@ header {
 	background-position: top left;
 }
 
+/* Recently viewed books */
+.recently-viewed {
+    max-width: 750px;
+    margin-top: 24px;
+    padding: 16px;
+    border: 2px solid green;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.recently-viewed h2 {
+    color: green;
+    margin-top: 0;
+}
+
+.recently-viewed p {
+    color: #333;
+    background: transparent;
+    opacity: 1;
+}
+
+.recently-viewed table {
+    width: 100%;
+}
+
 /* Login */
 .login-form {
 	width: 300px;
