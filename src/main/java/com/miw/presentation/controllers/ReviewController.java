@@ -97,7 +97,7 @@ public class ReviewController {
 
         List<ReviewDTO> reviews = getBookReviews.getReviewsByBook(bookId);
 
-        com.miw.feature.recommendation.core.port.inbound.dto.ReviewDTO recommendedReview = getRecommendedReview.getRecommendedReview().orElse(null);
+        com.miw.feature.recommendation.core.port.inbound.dto.ReviewDTO recommendedReview = getRecommendedReview.getRecommendedReview(bookId).orElse(null);
 
         model.addAttribute("book", book);
         model.addAttribute("bookReviews", reviews);
