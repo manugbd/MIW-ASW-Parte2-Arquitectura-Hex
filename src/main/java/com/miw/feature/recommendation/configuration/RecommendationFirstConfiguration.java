@@ -1,7 +1,6 @@
 package com.miw.feature.recommendation.configuration;
 
 import com.miw.feature.recommendation.adapter.outbound.selector.FirstReviewSelector;
-import com.miw.feature.recommendation.core.port.outbound.review.GetBookReviewsOfBook;
 import com.miw.feature.recommendation.core.port.outbound.selector.ReviewSelector;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

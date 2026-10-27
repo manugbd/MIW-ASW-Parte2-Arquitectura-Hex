@@ -10,7 +10,7 @@ public class FirstReviewSelector implements ReviewSelector {
 
     @Override
     public Optional<ReviewDTO> selectReview(List<ReviewDTO> reviews) {
-        return Optional.empty();
+        return reviews.stream().findFirst();
     }
 
 }

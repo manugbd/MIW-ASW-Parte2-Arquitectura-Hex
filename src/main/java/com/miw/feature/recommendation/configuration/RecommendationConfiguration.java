@@ -18,7 +18,7 @@ public class RecommendationConfiguration {
     }
 
     @Bean
-    public GetBookReviewsOfBook getBookReviews(GetBookReviews reviewSelector) {
-        return new GetBookReviewsOfBookAdapter(reviewSelector);
+    public GetBookReviewsOfBook getBookReviewsOfBook(GetBookReviews getBookReviews) {
+        return new GetBookReviewsOfBookAdapter(getBookReviews);
     }
 }

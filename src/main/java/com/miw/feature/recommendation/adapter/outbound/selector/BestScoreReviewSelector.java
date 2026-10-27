@@ -5,12 +5,13 @@ import com.miw.feature.recommendation.core.port.outbound.selector.ReviewSelector
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Comparator;
 
 public class BestScoreReviewSelector implements ReviewSelector {
 
     @Override
     public Optional<ReviewDTO> selectReview(List<ReviewDTO> reviews) {
-        return Optional.empty();
+        return reviews.stream().max(Comparator.comparingInt(ReviewDTO::score));
     }
 
 }
