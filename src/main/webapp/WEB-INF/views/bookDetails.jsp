@@ -44,6 +44,25 @@
             </p>
         </article>
 
+        <article class="book-reviews featured-review" aria-labelledby="featured-review-title">
+            <h2 id="featured-review-title">Featured review</h2>
+            <c:choose>
+                <c:when test="${empty recommendedReview}">
+                    <p>No featured review yet. Be the first to review this book.</p>
+                </c:when>
+                <c:otherwise>
+                    <div class="review-heading">
+                        <strong>User #<c:out value="${recommendedReview.userId}" /></strong>
+                        <c:if test="${recommendedReview.userId eq sessionScope.authenticatedUser.id}">
+                            <span class="own-review">Your review</span>
+                        </c:if>
+                        <span class="review-score"><c:out value="${recommendedReview.score}" /> / 10</span>
+                    </div>
+                    <p class="review-text"><c:out value="${recommendedReview.text}" /></p>
+                </c:otherwise>
+            </c:choose>
+        </article>
+
         <article class="book-reviews" aria-labelledby="reviews-title">
             <h2 id="reviews-title">Reader reviews (<c:out value="${bookReviews.size()}" />)</h2>
             <c:choose>

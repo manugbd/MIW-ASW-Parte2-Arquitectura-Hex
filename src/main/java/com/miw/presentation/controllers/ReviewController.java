@@ -3,6 +3,7 @@ package com.miw.presentation.controllers;
 import com.miw.feature.authentication.core.port.inbound.AuthenticatedUser;
 import com.miw.feature.catalog.core.port.inbound.FindBook;
 import com.miw.feature.catalog.core.port.inbound.dto.BookDataDTO;
+import com.miw.feature.recommendation.core.port.inbound.GetRecommendedReview;
 import com.miw.feature.review.core.port.inbound.AddBookReview;
 import com.miw.feature.review.core.port.inbound.GetBookReviews;
 import com.miw.feature.review.core.port.inbound.dto.ReviewDTO;
@@ -29,14 +30,17 @@ public class ReviewController {
     private final FindBook findBook;
     private final GetBookReviews getBookReviews;
     private final AddBookReview addBookReview;
+    private final GetRecommendedReview getRecommendedReview;
 
     // All args constructor
     public ReviewController(FindBook findBook,
                             GetBookReviews getBookReviews,
-                            AddBookReview addBookReview) {
+                            AddBookReview addBookReview,
+                            GetRecommendedReview getRecommendedReview) {
         this.findBook = findBook;
         this.getBookReviews = getBookReviews;
         this.addBookReview = addBookReview;
+        this.getRecommendedReview = getRecommendedReview;
     }
 
     // Business methods
@@ -93,8 +97,11 @@ public class ReviewController {
 
         List<ReviewDTO> reviews = getBookReviews.getReviewsByBook(bookId);
 
+        com.miw.feature.recommendation.core.port.inbound.dto.ReviewDTO recommendedReview = getRecommendedReview.getRecommendedReview().orElse(null);
+
         model.addAttribute("book", book);
         model.addAttribute("bookReviews", reviews);
+        model.addAttribute("recommendedReview", recommendedReview);
 
         return "bookDetails";
     }
