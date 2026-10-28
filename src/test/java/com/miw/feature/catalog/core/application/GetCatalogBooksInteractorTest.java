@@ -63,7 +63,7 @@ class GetCatalogBooksInteractorTest {
         when(repository.getBooks()).thenReturn(List.of(
                 new Book(2, "Dune", "Frank Herbert", "First description", 100, new VAT(1, 0.21, 1)),
                 new Book(1, "Foundation", "Isaac Asimov", "Second description", 50, new VAT(2, 0.04, 2))));
-        var result = interactor.getCatalogBooks();
+        List<BookDataDTO> result = interactor.getCatalogBooks();
         assertEquals(2, result.size());
         assertEquals(2, result.getFirst().id());
         assertEquals("Dune", result.getFirst().title());
