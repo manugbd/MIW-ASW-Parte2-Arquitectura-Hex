@@ -357,3 +357,68 @@ section.book-page {
     border-left-width: 6px;
     background: #f4faf2;
 }
+
+/* Book administration */
+.book-admin-page {
+    width: min(750px, calc(100% - 180px));
+    text-align: left;
+}
+
+.book-admin-panel {
+    margin-top: 30px;
+    padding: 24px;
+    border: 2px solid green;
+    border-radius: 10px;
+}
+
+.book-admin-panel h2 {
+    margin-top: 0;
+    color: green;
+}
+
+.book-admin-intro {
+    margin-bottom: 18px;
+    color: #444;
+}
+
+.book-admin-form label {
+    display: block;
+    margin: 16px 0 6px;
+    font-weight: bold;
+}
+
+.book-admin-form input,
+.book-admin-form textarea,
+.book-admin-form select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #777;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font: inherit;
+}
+
+.book-admin-form small {
+    display: block;
+    margin-top: 4px;
+    color: #555;
+}
+
+.book-admin-form button {
+    margin-top: 20px;
+}
+
+.book-admin-success {
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 1px solid green;
+    border-radius: 4px;
+    background: #f4faf2;
+}
+
+@media (max-width: 650px) {
+    .book-admin-page {
+        display: block;
+        width: 100%;
+    }
+}

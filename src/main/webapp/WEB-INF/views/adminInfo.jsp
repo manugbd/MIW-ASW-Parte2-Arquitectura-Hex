@@ -53,6 +53,8 @@
 
 			<p>This page is only available to administrators.</p>
 
+            <a href="${pageContext.request.contextPath}/admin/books/new">Add a new book</a>
+
 		</article>
 
 	</section>

@@ -77,6 +77,11 @@
 				Show Special Offers!
 			</a>
 
+			<c:if test="${sessionScope.authenticatedUser.role eq 'ADMIN'}">
+				<br>
+				<a href="${pageContext.request.contextPath}/adminInfo">Administration</a>
+			</c:if>
+
 		</article>
 
 		<article class="recently-viewed" aria-labelledby="recently-viewed-title">

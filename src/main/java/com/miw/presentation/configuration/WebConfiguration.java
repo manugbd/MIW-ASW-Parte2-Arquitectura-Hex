@@ -33,9 +33,10 @@ public class WebConfiguration implements WebMvcConfigurer {
 						"/books/*",
 						"/books/*/reviews",
 						"/books/*/reviews/**",
-						"/adminInfo");
+						"/adminInfo",
+						"/admin/**");
 
 		registry.addInterceptor(adminAthorizationInterceptor)
-				.addPathPatterns("/adminInfo");
+				.addPathPatterns("/adminInfo", "/admin/**");
 	}
 }
