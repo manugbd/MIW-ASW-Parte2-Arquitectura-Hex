@@ -17,7 +17,7 @@
 <body>
 
 	<header>
-		<h1 class="header">Amazin.com</h1>
+		<h1 class="header">El Amazin de Manu</h1>
 
 		<h2 class="centered">
 			Welcome to the <em>smallest</em> online shop in the world!!
