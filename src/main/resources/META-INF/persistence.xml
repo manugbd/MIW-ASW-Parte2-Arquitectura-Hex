@@ -19,7 +19,7 @@
 		<properties>
 			<!-- Existing Amazin HSQLDB database. -->
 			<property name="jakarta.persistence.jdbc.url"
-				value="jdbc:hsqldb:hsql://localhost/amazin" />
+				value="jdbc:hsqldb:hsql://localhost:9002/amazin" />
 			<property name="jakarta.persistence.jdbc.user"
 				value="DFLANVIN" />
 			<property name="jakarta.persistence.jdbc.password"
