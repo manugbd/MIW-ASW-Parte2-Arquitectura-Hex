@@ -11,4 +11,6 @@ public interface BookRepository {
 
 	Optional<Book> findBookById(int bookId);
 
+	Book add(Book book);
+
 }

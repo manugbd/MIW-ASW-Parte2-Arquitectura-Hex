@@ -11,6 +11,7 @@ public class Book {
     // Attributes
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int id;
 
@@ -44,6 +45,10 @@ public class Book {
         setDescription(description);
         setBasePrice(basePrice);
         setVat(vat);
+    }
+
+    public Book(String title, String author, String description, double basePrice, VAT vat) {
+        this(0, title, author, description, basePrice, vat);
     }
 
     // Getters
@@ -80,25 +85,25 @@ public class Book {
     }
 
     public void setTitle(String title) {
-        if (title == null || title.isBlank())
-            throw new IllegalArgumentException("title must not be blank");
+        if (title == null || title.isBlank() || title.length() > 255)
+            throw new IllegalArgumentException("Title must contain between 1 and 255 characters");
         this.title = title;
     }
 
     public void setAuthor(String author) {
-        if (author == null || author.isBlank())
-            throw new IllegalArgumentException("author must not be blank");
+        if (author == null || author.isBlank() || author.length() > 255)
+            throw new IllegalArgumentException("Author must contain between 1 and 255 characters");
         this.author = author;
     }
 
     public void setDescription(String description) {
-        if (description == null || description.isBlank())
-            throw new IllegalArgumentException("description must not be blank");
+        if (description == null || description.isBlank() || description.length() > 255)
+            throw new IllegalArgumentException("Description must contain between 1 and 255 characters");
         this.description = description;
     }
 
     public void setBasePrice(double basePrice) {
-        if (basePrice < 0)
+        if (!Double.isFinite(basePrice) || basePrice < 0)
             throw new IllegalArgumentException("Base price must be finite and non-negative");
         this.basePrice = basePrice;
     }
