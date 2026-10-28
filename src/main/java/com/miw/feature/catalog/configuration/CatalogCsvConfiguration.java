@@ -6,10 +6,17 @@ import org.springframework.context.annotation.Profile;
 
 import com.miw.feature.catalog.adapter.outbound.persistence.CsvBookRepositoryAdapter;
 import com.miw.feature.catalog.core.port.outbound.persistence.BookRepository;
+import com.miw.feature.catalog.adapter.outbound.persistence.CsvVATRepositoryAdapter;
+import com.miw.feature.catalog.core.port.outbound.persistence.VATRepository;
 
 @Configuration
 @Profile("csv")
 public class CatalogCsvConfiguration {
+
+	@Bean
+	public VATRepository vatRepository(BookRepository bookRepository) {
+		return new CsvVATRepositoryAdapter(bookRepository);
+	}
 
 	@Bean
 	public BookRepository bookRepository() {

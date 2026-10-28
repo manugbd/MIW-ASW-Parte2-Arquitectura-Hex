@@ -71,4 +71,9 @@ public class CsvBookRepositoryAdapter implements BookRepository {
 				.findFirst();
 	}
 
+	@Override
+	public Book add(Book book) {
+		throw new UnsupportedOperationException("The CSV catalog is read-only. Use the jpa profile to add books.");
+	}
+
 }

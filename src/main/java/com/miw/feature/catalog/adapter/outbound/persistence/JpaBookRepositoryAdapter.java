@@ -1,12 +1,12 @@
 package com.miw.feature.catalog.adapter.outbound.persistence;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.miw.feature.catalog.core.domain.Book;
 import com.miw.feature.catalog.core.port.outbound.persistence.BookRepository;
-
 import jakarta.persistence.EntityManager;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 
 public class JpaBookRepositoryAdapter implements BookRepository {
 
@@ -28,6 +28,14 @@ public class JpaBookRepositoryAdapter implements BookRepository {
 	@Override
 	public Optional<Book> findBookById(int bookId) {
 		return Optional.ofNullable(entityManager.find(Book.class, bookId));
+	}
+
+	@Override
+	@Transactional
+	public Book add(Book book) {
+		entityManager.persist(book);
+		entityManager.flush();
+		return book;
 	}
 
 }
