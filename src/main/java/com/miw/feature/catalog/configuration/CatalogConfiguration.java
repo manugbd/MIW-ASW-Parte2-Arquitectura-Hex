@@ -12,9 +12,24 @@ import com.miw.feature.catalog.core.port.inbound.GetCatalogBooks;
 import com.miw.feature.catalog.core.port.inbound.GetSpecialOfferBook;
 import com.miw.feature.catalog.core.port.outbound.bookselector.BookSelector;
 import com.miw.feature.catalog.core.port.outbound.persistence.BookRepository;
+import com.miw.feature.catalog.core.application.AddBookInteractor;
+import com.miw.feature.catalog.core.application.GetVATsInteractor;
+import com.miw.feature.catalog.core.port.inbound.AddBook;
+import com.miw.feature.catalog.core.port.inbound.GetVATs;
+import com.miw.feature.catalog.core.port.outbound.persistence.VATRepository;
 
 @Configuration
 public class CatalogConfiguration {
+
+	@Bean
+	public AddBook addBook(BookRepository bookRepository, VATRepository vatRepository) {
+		return new AddBookInteractor(bookRepository, vatRepository);
+	}
+
+	@Bean
+	public GetVATs getVATs(VATRepository vatRepository) {
+		return new GetVATsInteractor(vatRepository);
+	}
 
 	@Bean
 	public BookSelector bookSelector() {
